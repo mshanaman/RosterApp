@@ -1,7 +1,161 @@
-<weightClass>:
-    cols: 2
-    Button:
-        text: 'Add Wrestler'
-        on_press: root.addWrestler()
 
-     
+<ClassScoreBar>:
+    orientation: 'horizontal'
+    
+<DualMeet>:
+    orientation: 'vertical'
+
+<RLabel@Label>:
+    size_hint_x: 0.05
+    
+<RButton@Button>:
+    size_hint_x: 0.05
+    text: '+'
+
+<WeightClass>:
+    cols: 2
+
+<Roster>:
+    w106: w106
+    w113: w113
+    w120: w120
+    w126: w126
+    w132: w132
+    w138: w138
+    w145: w145
+    w152: w152
+    w160: w160
+    w170: w170
+    w182: w182
+    w195: w195
+    w220: w220
+    w275: w275
+    
+    cols: 3
+    rows: 14
+
+    RLabel:
+        text: '106'    
+    RButton:
+        on_press: w106.addWrestler()
+    WeightClass:
+        id: w106
+
+    RLabel:
+        text: '113'
+    RButton:
+        on_press: w113.addWrestler()
+    WeightClass:
+        id: w113
+
+    RLabel:
+        text: '120'
+    RButton:
+        on_press: w120.addWrestler()
+    WeightClass:
+        id: w120
+
+    RLabel:
+        text: '126'
+    RButton:
+        on_press: w126.addWrestler()
+    WeightClass:
+        id: w126
+
+    RLabel:
+        text: '132'
+    RButton:
+        on_press: w132.addWrestler()
+    WeightClass:
+        id: w132
+
+    RLabel:
+        text: '138'
+    RButton:
+        on_press: w138.addWrestler()
+    WeightClass:
+        id: w138
+
+    RLabel:
+        text: '145'
+    RButton:
+        on_press: w145.addWrestler()
+    WeightClass:
+        id: w145
+
+    RLabel:
+        text: '152'
+    RButton:
+        on_press: w152.addWrestler()
+    WeightClass:
+        id: w152
+
+    RLabel:
+        text: '160'
+    RButton:
+        on_press: w160.addWrestler()
+    WeightClass:
+        id: w160
+
+    RLabel:
+        text: '170'
+    RButton:
+        on_press: w170.addWrestler()
+    WeightClass:
+        id: w170
+
+    RLabel:
+        text: '182'
+    RButton:
+        on_press: w182.addWrestler()
+    WeightClass:
+        id: w182
+
+    RLabel:
+        text: '195'
+    RButton:
+        on_press: w195.addWrestler()
+    WeightClass:
+        id: w195
+
+    RLabel:
+        text: '220'
+    RButton:
+        on_press: w220.addWrestler()
+    WeightClass:
+        id: w220
+
+    RLabel:
+        text: '275'
+    RButton:
+        on_press: w275.addWrestler()
+    WeightClass:
+        id: w275
+
+<TabbedPanel>:
+
+    TabbedPanelItem:
+        text: 'Our Team'    
+        Roster:
+            id: us
+            
+    TabbedPanelItem:
+        text: 'Their Team'             
+        Roster:
+            id: them
+            
+    TabbedPanelItem:
+        text: 'Varsity Meet'         
+        DualMeet:
+            id: Varsity
+    
+    TabbedPanelItem:
+        text: 'JV Meet'         
+        DualMeet:
+            id: JV    
+    
+    
+    
+    
+    
+    
