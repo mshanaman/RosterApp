@@ -45,10 +45,21 @@ class ClassScoreBar(BoxLayout):
         self.add_widget(self.RLabel)
         
     def setWeight(self,wt):
+        wts = [106,113,120,126,132,138,145,152,160,170,182,195,220,275]
+        idx = wts.index(wt)
+        self.LLabel.text = str(wt)
+        self.RLabel.text = str(wt)
         
-        self.LLabel.text = wt
-        self.RLabel.text = wt
-        self.LName.values = app.root.ids.us.ids
+        if wt is 106:
+            
+            self.LName.values = self.app.root.ids.us.wList[idx].nameList
+            self.RName.values = self.app.root.ids.them.wList[idx].nameList
+            
+        else:
+            
+            self.LName.values = app.root.ids.us.wList[idx].nameList + app.root.ids.us.wList[idx-1].nameList
+            self.RName.values = app.root.ids.them.wList[idx].nameList + app.root.ids.them.wList[idx-1].nameList
+            
         
 
 class DualMeet(BoxLayout):
@@ -78,7 +89,7 @@ class DualMeet(BoxLayout):
             
             self.ScoreBarList.append(ClassScoreBar())
             self.add_widget(self.ScoreBarList[i])
-            self.ScoreBarList[i].setWeight(str(self.weights[i]))
+            self.ScoreBarList[i].setWeight(self.weights[i])
         
 
 class Wrestler(Button):
@@ -116,7 +127,7 @@ class WeightClass(GridLayout):
         
         self.nameList.remove(name)
         
-    def deselectWrestler(self.name):
+    def deselectWrestler(self,name):
         
         self.nameList.append(name)
 
@@ -135,7 +146,8 @@ class Roster(GridLayout):
     w182 = ObjectProperty(None)
     w195 = ObjectProperty(None)
     w220 = ObjectProperty(None)
-    w275 = ObjectProperty(None)
+    w275 = ObjectProperty(None)    
+    wList = ListProperty([w106,w113,w120,w126,w132,w138,w145,w152,w160,w170,w182,w195,w220,w275])
     
 class WrestlingApp(App):
     
