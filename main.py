@@ -131,28 +131,39 @@ class WeightClass(GridLayout):
         
         self.nameList.append(name)
 
-class Roster(GridLayout):
+class Roster(GridLayout(cols=3, rows=14)):
+ 
+    wList = ListProperty([])
+    
+    def __init__(self,**kwargs):
+        super(Roster,self).__init__(**kwargs)
+        
+        wts = [106,113,120,126,132,138,145,152,160,170,182,195,220,275]
+        self.buttons = []
+        
+        for i in range(14):
+            
+            self.wList.append(WeightClass())
+            
+            self.add_widget(Label(text=str(wts[i]), size_hint_x=0.05))
+            
+            self.buttons.append(Button(text='+', size_hint_x=0.05))
+            self.buttons[i].bind(on_press=self.wList[i].addWrestler())
+            self.add_widget(self.buttons[i])
+            
+            self.add_widget(self.wList[i])
 
-    w106 = ObjectProperty(None)
-    w113 = ObjectProperty(None)
-    w120 = ObjectProperty(None)
-    w126 = ObjectProperty(None)
-    w132 = ObjectProperty(None)
-    w138 = ObjectProperty(None)
-    w145 = ObjectProperty(None)
-    w152 = ObjectProperty(None)
-    w160 = ObjectProperty(None)
-    w170 = ObjectProperty(None)
-    w182 = ObjectProperty(None)
-    w195 = ObjectProperty(None)
-    w220 = ObjectProperty(None)
-    w275 = ObjectProperty(None)    
-    wList = ListProperty([w106,w113,w120,w126,w132,w138,w145,w152,w160,w170,w182,w195,w220,w275])
+class MainWidget(TabbedPanel):
+        
+    def __init__(self,**kwargs):
+        super(MainWidget,self).__init__(**kwargs)
+        
+        
     
 class WrestlingApp(App):
     
     def build(self):
-        MainApp = TabbedPanel()
+        MainApp = MainWidget()
         return MainApp
 
 if __name__ == '__main__':
