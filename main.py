@@ -13,7 +13,7 @@ from kivy.properties import NumericProperty, ListProperty, ObjectProperty
 
 from collections import deque
 
-class ClassScoreBar(BoxLayout):
+class ClassScoreBar(BoxLayout(orientation='horizontal')):
     
     app = App.get_running_app()
     
@@ -96,7 +96,7 @@ class Wrestler(Button):
     
     pass
 
-class WeightClass(GridLayout):
+class WeightClass(GridLayout(cols=2)):
     
     num = NumericProperty(0)
     weightList = ListProperty([])
@@ -157,6 +157,15 @@ class MainWidget(TabbedPanel):
         
     def __init__(self,**kwargs):
         super(MainWidget,self).__init__(**kwargs)
+        
+        self.UsRoster = TabbedPanelHeader(text='Our Team')
+        self.ThemRoster = TabbedPanelHeader(text='Their Team')
+        
+        self.UsRoster.content = Roster()
+        self.ThemRoster.content = Roster()
+        
+        self.add_widget(self.UsRoster)
+        self.add_widget(self.ThemRoster)
         
         
     
