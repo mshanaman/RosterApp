@@ -77,33 +77,86 @@ class ClassScoreBar(BoxLayout):
         
         if self.weight is 106:
             
-            self.LName.values = self.UsRoster.wList[self.wt_idx].nameList
-            self.RName.values = self.ThemRoster.wList[self.wt_idx].nameList
+            tempList_L = self.UsRoster.wList[self.wt_idx].nameList
+            tempList_R = self.ThemRoster.wList[self.wt_idx].nameList
+            activeList_L = self.UsRoster.wList[self.wt_idx].activeList
+            activeList_R = self.ThemRoster.wList[self.wt_idx].activeList
+                           
+            tempList_L = [x for x in tempList_L if x not in activeList_L]                
+            tempList_R = [x for x in tempList_R if x not in activeList_R]
+                
+            self.LName.values = tempList_L
+            self.RName.values = tempList_R
             
         else:
             
-            self.LName.values = self.UsRoster.wList[self.wt_idx].nameList + self.UsRoster.wList[self.wt_idx-1].nameList
-            self.RName.values = self.ThemRoster.wList[self.wt_idx].nameList + self.ThemRoster.wList[self.wt_idx-1].nameList
+            tempList_L = self.UsRoster.wList[self.wt_idx].nameList + self.UsRoster.wList[self.wt_idx-1].nameList
+            tempList_R = self.ThemRoster.wList[self.wt_idx].nameList + self.ThemRoster.wList[self.wt_idx-1].nameList
+            activeList_L = self.UsRoster.wList[self.wt_idx].activeList + self.UsRoster.wList[self.wt_idx-1].activeList
+            activeList_R = self.ThemRoster.wList[self.wt_idx].activeList + self.ThemRoster.wList[self.wt_idx-1].activeList
+
+            tempList_L = [x for x in tempList_L if x not in activeList_L]                
+            tempList_R = [x for x in tempList_R if x not in activeList_R]
+                
+            self.LName.values = tempList_L
+            self.RName.values = tempList_R
     
     def editNameLists(self, spinner, txt):
         
         if spinner is self.LName:
             
-            if self.LNameText is not 'default':
+            if self.weight is 106:
             
-                self.UsRoster.wList[self.wt_idx].deselectWrestler(self.LNameText)
-            
-            self.LNameText = txt
-            self.UsRoster.wList[self.wt_idx].selectWrestler(txt)
+                if self.LNameText is not 'default':
+                
+                    self.UsRoster.wList[self.wt_idx].deselectWrestler(self.LNameText)
+                
+                self.LNameText = txt
+                self.UsRoster.wList[self.wt_idx].selectWrestler(txt)
+
+            else:                
+           
+                if self.LNameText is not 'default':
+                    
+                    if txt in self.UsRoster.wList[self.wt_idx].nameList:
+                
+                        self.UsRoster.wList[self.wt_idx].deselectWrestler(self.LNameText)
+                        self.UsRoster.wList[self.wt_idx].selectWrestler(txt)
+                        
+                    else:
+
+                        self.UsRoster.wList[self.wt_idx-1].deselectWrestler(self.LNameText)
+                        self.UsRoster.wList[self.wt_idx-1].selectWrestler(txt)
+
+                self.LNameText = txt
+                
             
         elif spinner is self.RName:
             
-            if self.RNameText is not 'default':
+            if self.weight is 106:
             
-                self.ThemRoster.wList[self.wt_idx].deselectWrestler(self.RNameText)
-            
-            self.RNameText = txt
-            self.ThemRoster.wList[self.wt_idx].selectWrestler(txt)
+                if self.RNameText is not 'default':
+                
+                    self.ThemRoster.wList[self.wt_idx].deselectWrestler(self.RNameText)
+                
+                self.RNameText = txt
+                self.ThemRoster.wList[self.wt_idx].selectWrestler(txt)
+
+            else:                
+           
+                if self.RNameText is not 'default':
+                    
+                    if txt in self.ThemRoster.wList[self.wt_idx].nameList:
+                
+                        self.ThemRoster.wList[self.wt_idx].deselectWrestler(self.RNameText)
+                        self.ThemRoster.wList[self.wt_idx].selectWrestler(txt)
+                        
+                    else:
+
+                        self.ThemRoster.wList[self.wt_idx-1].deselectWrestler(self.RNameText)
+                        self.ThemRoster.wList[self.wt_idx-1].selectWrestler(txt)
+
+                self.RNameText = txt
 
 class DualMeet(BoxLayout):
     
@@ -151,6 +204,7 @@ class WeightClass(GridLayout):
     num = NumericProperty(0)
     weightList = ListProperty([])
     nameList = ListProperty([])
+    activeList = ListProperty([])
     
     def __init__(self,**kwargs):
         super(WeightClass,self).__init__(**kwargs)
@@ -180,11 +234,11 @@ class WeightClass(GridLayout):
         
     def selectWrestler(self,name):
         
-        self.nameList.remove(name)
+        self.activeList.append(name)
         
     def deselectWrestler(self,name):
         
-        self.nameList.append(name)
+        self.activeList.remove(name)
 
 class Roster(GridLayout):
  
