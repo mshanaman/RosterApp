@@ -51,6 +51,8 @@ class ClassScoreBar(BoxLayout):
         self.wt_idx = idx
         self.LLabel.text = str(wt)
         self.RLabel.text = str(wt)
+        self.LName.bind(text=self.updateNames)
+        self.RName.bind(text=self.updateNames)
         
         if wt == 106:
             
@@ -96,69 +98,42 @@ class ClassScoreBar(BoxLayout):
         
         if spinner is self.LName:
             
-            if self.weight == 106:
-            
-                if self.LNameText != 'default':
-                
+            if self.weight == 106:            
+                if self.LNameText != 'default':                
                     self.UsRoster.wList[self.wt_idx].deselectWrestler(self.LNameText)
-                
+                    
                 self.UsRoster.wList[self.wt_idx].selectWrestler(txt)                    
                 self.LNameText = txt
-                
-
-            else:                
-           
-                if self.LNameText != 'default':
-                    
-                    if self.LNameText in self.UsRoster.wList[self.wt_idx].activeList:
-                
+            else:           
+                if self.LNameText != 'default':                    
+                    if self.LNameText in self.UsRoster.wList[self.wt_idx].activeList:                
                         self.UsRoster.wList[self.wt_idx].deselectWrestler(self.LNameText)                        
-                        
                     else:
-
                         self.UsRoster.wList[self.wt_idx-1].deselectWrestler(self.LNameText)
-
-                if txt in self.UsRoster.wList[self.wt_idx].nameList:
-                    
-                    self.UsRoster.wList[self.wt_idx].selectWrestler(txt)
-                    
-                else:
-                    
+                if txt in self.UsRoster.wList[self.wt_idx].nameList:                    
+                    self.UsRoster.wList[self.wt_idx].selectWrestler(txt)                    
+                else:                    
                     self.UsRoster.wList[self.wt_idx-1].selectWrestler(txt)
-
-                self.LNameText = txt
-                
+                    
+                self.LNameText = txt                
             
         elif spinner is self.RName:
             
-            if self.weight == 106:
-            
-                if self.RNameText != 'default':
-                
+            if self.weight == 106:            
+                if self.RNameText != 'default':                
                     self.ThemRoster.wList[self.wt_idx].deselectWrestler(self.RNameText)
-                
-                self.ThemRoster.wList[self.wt_idx].selectWrestler(txt)                    
+                    
+                self.ThemRoster.wList[self.wt_idx].selectWrestler(txt)
                 self.RNameText = txt
-                
-
-            else:                
-           
-                if self.RNameText != 'default':
-                    
-                    if self.RNameText in self.ThemRoster.wList[self.wt_idx].activeList:
-                
+            else:           
+                if self.RNameText != 'default':                    
+                    if self.RNameText in self.ThemRoster.wList[self.wt_idx].activeList:                
                         self.ThemRoster.wList[self.wt_idx].deselectWrestler(self.RNameText)                        
-                        
                     else:
-
                         self.ThemRoster.wList[self.wt_idx-1].deselectWrestler(self.RNameText)
-
-                if txt in self.ThemRoster.wList[self.wt_idx].nameList:
-                    
-                    self.ThemRoster.wList[self.wt_idx].selectWrestler(txt)
-                    
-                else:
-                    
+                if txt in self.ThemRoster.wList[self.wt_idx].nameList:                    
+                    self.ThemRoster.wList[self.wt_idx].selectWrestler(txt)                    
+                else:                    
                     self.ThemRoster.wList[self.wt_idx-1].selectWrestler(txt)
 
                 self.RNameText = txt
