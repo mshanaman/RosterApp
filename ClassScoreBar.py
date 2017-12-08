@@ -45,7 +45,7 @@ class ClassScoreBar(BoxLayout):
         self.RName.bind(text=self.editNameLists)
         
     def setWeight(self,wt):
-        wts = [106,113,120,126,132,138,145,152,160,170,182,195,220,275]
+        wts = [106,113,120,126,132,138,145,152,160,170,182,195,220,285]
         self.weight = wt
         idx = wts.index(wt)
         self.wt_idx = idx
@@ -53,22 +53,37 @@ class ClassScoreBar(BoxLayout):
         self.RLabel.text = str(wt)
         self.LName.bind(text=self.updateNames)
         self.RName.bind(text=self.updateNames)
-        self.LName.bind(text=self.parent.ScoreBarList[idx-1].updateNames)
-        self.RName.bind(text=self.parent.ScoreBarList[idx-1].updateNames)
-        self.LName.bind(text=self.parent.ScoreBarList[idx+1].updateNames)
-        self.RName.bind(text=self.parent.ScoreBarList[idx+1].updateNames)
         
         if wt == 106:
             
             self.UsRoster.wList[idx].bind(nameList=self.updateNames)
             self.ThemRoster.wList[idx].bind(nameList=self.updateNames)
-            
+                        
         else:
             
             self.UsRoster.wList[idx].bind(nameList=self.updateNames)
             self.UsRoster.wList[idx-1].bind(nameList=self.updateNames)
             self.ThemRoster.wList[idx].bind(nameList=self.updateNames)
             self.ThemRoster.wList[idx-1].bind(nameList=self.updateNames)
+                        
+    def bind2Neighbors(self):
+        
+        if self.weight == 106:
+            
+            self.LName.bind(text=self.parent.ScoreBarList[self.wt_idx+1].updateNames)
+            self.RName.bind(text=self.parent.ScoreBarList[self.wt_idx+1].updateNames)
+            
+        elif self.weight == 285:
+            
+            self.LName.bind(text=self.parent.ScoreBarList[self.wt_idx-1].updateNames)
+            self.RName.bind(text=self.parent.ScoreBarList[self.wt_idx-1].updateNames)                
+            
+        else:
+            
+            self.LName.bind(text=self.parent.ScoreBarList[self.wt_idx-1].updateNames)
+            self.RName.bind(text=self.parent.ScoreBarList[self.wt_idx-1].updateNames)
+            self.LName.bind(text=self.parent.ScoreBarList[self.wt_idx+1].updateNames)
+            self.RName.bind(text=self.parent.ScoreBarList[self.wt_idx+1].updateNames)
                         
     def updateNames(self, instance, names):
         

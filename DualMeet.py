@@ -7,7 +7,7 @@ from ClassScoreBar import ClassScoreBar
 class DualMeet(BoxLayout):
     
     ScoreBarList = ListProperty([])
-    weights = deque([106,113,120,126,132,138,145,152,160,170,182,195,220,275])
+    weights = deque([106,113,120,126,132,138,145,152,160,170,182,195,220,285])
     UsRoster = ObjectProperty(None)
     ThemRoster = ObjectProperty(None)
     
@@ -39,3 +39,9 @@ class DualMeet(BoxLayout):
             self.ScoreBarList[i].ThemRoster = self.ThemRoster
             self.add_widget(self.ScoreBarList[i])
             self.ScoreBarList[i].setWeight(self.weights[i])
+            
+        for j in range(14):
+            
+            self.ScoreBarList[j].bind2Neighbors()
+            
+            
