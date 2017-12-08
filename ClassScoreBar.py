@@ -53,6 +53,10 @@ class ClassScoreBar(BoxLayout):
         self.RLabel.text = str(wt)
         self.LName.bind(text=self.updateNames)
         self.RName.bind(text=self.updateNames)
+        self.LName.bind(text=self.parent.ScoreBarList[idx-1].updateNames)
+        self.RName.bind(text=self.parent.ScoreBarList[idx-1].updateNames)
+        self.LName.bind(text=self.parent.ScoreBarList[idx+1].updateNames)
+        self.RName.bind(text=self.parent.ScoreBarList[idx+1].updateNames)
         
         if wt == 106:
             
@@ -65,7 +69,7 @@ class ClassScoreBar(BoxLayout):
             self.UsRoster.wList[idx-1].bind(nameList=self.updateNames)
             self.ThemRoster.wList[idx].bind(nameList=self.updateNames)
             self.ThemRoster.wList[idx-1].bind(nameList=self.updateNames)
-            
+                        
     def updateNames(self, instance, names):
         
         if self.weight == 106:
