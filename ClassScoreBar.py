@@ -97,8 +97,8 @@ class ClassScoreBar(BoxLayout):
             tempList_L = [x for x in tempList_L if x not in activeList_L]                
             tempList_R = [x for x in tempList_R if x not in activeList_R]
                 
-            self.LName.values = tempList_L
-            self.RName.values = tempList_R
+            self.LName.values = tempList_L + ['FF']
+            self.RName.values = tempList_R + ['FF']
             
         else:
             
@@ -110,8 +110,8 @@ class ClassScoreBar(BoxLayout):
             tempList_L = [x for x in tempList_L if x not in activeList_L]                
             tempList_R = [x for x in tempList_R if x not in activeList_R]
                 
-            self.LName.values = tempList_L
-            self.RName.values = tempList_R
+            self.LName.values = tempList_L + ['FF']
+            self.RName.values = tempList_R + ['FF']
     
     def editNameLists(self, spinner, txt):
         
