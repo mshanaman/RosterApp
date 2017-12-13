@@ -23,11 +23,18 @@ class MainWidget(TabbedPanel):
         self.add_widget(self.VMeet)
         self.add_widget(self.JVMeet)
         self.JVMeet.content.UsRoster = self.UsRoster.content
-        self.JVMeet.content.ThemRoster = self.ThemRoster.content        
+        self.JVMeet.content.ThemRoster = self.ThemRoster.content
+        self.JVMeet.content.Daddy = self        
         self.VMeet.content.UsRoster = self.UsRoster.content
         self.VMeet.content.ThemRoster = self.ThemRoster.content
+        self.VMeet.content.Daddy = self
         self.VMeet.content.populate()
-        self.JVMeet.content.populate()        
+        self.JVMeet.content.populate()
+        
+    def updateWCs(self,instance,name):
+        
+        self.VMeet.content.updateWCs()
+        self.JVMeet.content.updateWCs()
     
 class WrestlingApp(App):
     
