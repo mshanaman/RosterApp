@@ -15,17 +15,20 @@ class ClassScoreBar(BoxLayout):
         
         self.orientation='horizontal'
         
-        self.LLabel = Label(size_hint_x=0.05)
+        vals = ['0','3','4','5','6']
+        scoreSize = 0.1
+        
+        self.LLabel = Label(size_hint_x=scoreSize)
         self.LName = Spinner()
-        self.LPred = TextInput(text='0', multiline=False, size_hint_x=0.05)
-        self.LAct = TextInput(text='0', multiline=False, size_hint_x=0.05)
-        self.LNeed = TextInput(text='0', multiline=False, size_hint_x=0.05)
+        self.LPred = Spinner(text='0', values=vals, size_hint_x=scoreSize)
+        self.LAct = Spinner(text='0', values=vals, size_hint_x=scoreSize)
+        self.LNeed = Label(text='0', size_hint_x=scoreSize)
         self.slider = Slider(min=0, max=10, value=5)
-        self.RLabel = Label(size_hint_x=0.05)
+        self.RLabel = Label(size_hint_x=scoreSize)
         self.RName = Spinner()
-        self.RPred = TextInput(text='0', multiline=False, size_hint_x=0.05)
-        self.RAct = TextInput(text='0', multiline=False, size_hint_x=0.05)
-        self.RNeed = TextInput(text='0', multiline=False, size_hint_x=0.05)
+        self.RPred = Spinner(text='0', values=vals, size_hint_x=scoreSize)
+        self.RAct = Spinner(text='0', values=vals, size_hint_x=scoreSize)
+        self.RNeed = Label(text='0', size_hint_x=scoreSize)
         self.LNameText = 'default'
         self.RNameText = 'default'
         
@@ -67,25 +70,12 @@ class ClassScoreBar(BoxLayout):
             self.ThemRoster.wList[idx-1].bind(nameList=self.updateNames)
                         
     def bind2Neighbors(self):
-        
-#        if self.weight == 106:
-#            
-#            self.LName.bind(text=self.parent.ScoreBarList[self.wt_idx+1].updateNames)
-#            self.RName.bind(text=self.parent.ScoreBarList[self.wt_idx+1].updateNames)
-#            
-#        elif self.weight == 285:
-#            
-#            self.LName.bind(text=self.parent.ScoreBarList[self.wt_idx-1].updateNames)
-#            self.RName.bind(text=self.parent.ScoreBarList[self.wt_idx-1].updateNames)                
-#            
-#        else:
-#            
-#            self.LName.bind(text=self.parent.ScoreBarList[self.wt_idx-1].updateNames)
-#            self.RName.bind(text=self.parent.ScoreBarList[self.wt_idx-1].updateNames)
-#            self.LName.bind(text=self.parent.ScoreBarList[self.wt_idx+1].updateNames)
-#            self.RName.bind(text=self.parent.ScoreBarList[self.wt_idx+1].updateNames)
-        
+               
         self.LName.bind(text=self.parent.Daddy.updateWCs)
+        self.LPred.bind(text=self.parent.totalScores)
+        self.RPred.bind(text=self.parent.totalScores)
+        self.LAct.bind(text=self.parent.totalScores)
+        self.RAct.bind(text=self.parent.totalScores)
                         
     def updateNames(self, instance, names):
         
