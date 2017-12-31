@@ -9,10 +9,13 @@ class MainWidget(TabbedPanel):
     def __init__(self,**kwargs):
         super(MainWidget,self).__init__(**kwargs)
         
+        self.do_default_tab = False
         self.UsRoster = TabbedPanelHeader(text='Our Team')
         self.ThemRoster = TabbedPanelHeader(text='Their Team')        
         self.UsRoster.content = Roster()
-        self.ThemRoster.content = Roster()        
+        self.UsRoster.content.name = 'Us'
+        self.ThemRoster.content = Roster()
+        self.ThemRoster.content.name = 'Them'
         self.add_widget(self.UsRoster)
         self.add_widget(self.ThemRoster)
         

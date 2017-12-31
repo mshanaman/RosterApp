@@ -13,6 +13,7 @@ class WeightClass(GridLayout):
     def __init__(self,**kwargs):
         super(WeightClass,self).__init__(**kwargs)
         self.cols = 2
+        self.name = ' '
         
     def on_enter(self,value):
         
