@@ -10,6 +10,7 @@ class MainWidget(TabbedPanel):
         super(MainWidget,self).__init__(**kwargs)
         
         self.do_default_tab = False
+        self.tab_width = 200
         self.UsRoster = TabbedPanelHeader(text='Our Team')
         self.ThemRoster = TabbedPanelHeader(text='Their Team')        
         self.UsRoster.content = Roster()
