@@ -51,6 +51,9 @@ class ClassScoreBar(BoxLayout):
         wts = [106,113,120,126,132,138,145,152,160,170,182,195,220,285]
         self.weight = wt
         idx = wts.index(wt)
+        if wt != 106:
+            wtDwn = wts[idx-1]
+            self.weightDwn = wtDwn
         self.wt_idx = idx
         self.LLabel.text = str(wt)
         self.RLabel.text = str(wt)
@@ -59,15 +62,15 @@ class ClassScoreBar(BoxLayout):
         
         if wt == 106:
             
-            self.UsRoster.wList[idx].bind(nameList=self.updateNames)
-            self.ThemRoster.wList[idx].bind(nameList=self.updateNames)
+            self.UsRoster.wList[wt].bind(nameList=self.updateNames)
+            self.ThemRoster.wList[wt].bind(nameList=self.updateNames)
                         
         else:
             
-            self.UsRoster.wList[idx].bind(nameList=self.updateNames)
-            self.UsRoster.wList[idx-1].bind(nameList=self.updateNames)
-            self.ThemRoster.wList[idx].bind(nameList=self.updateNames)
-            self.ThemRoster.wList[idx-1].bind(nameList=self.updateNames)
+            self.UsRoster.wList[wt].bind(nameList=self.updateNames)
+            self.UsRoster.wList[wtDwn].bind(nameList=self.updateNames)
+            self.ThemRoster.wList[wt].bind(nameList=self.updateNames)
+            self.ThemRoster.wList[wtDwn].bind(nameList=self.updateNames)
                         
     def bind2Neighbors(self):
                
@@ -81,10 +84,10 @@ class ClassScoreBar(BoxLayout):
         
         if self.weight == 106:
             
-            tempList_L = self.UsRoster.wList[self.wt_idx].nameList
-            tempList_R = self.ThemRoster.wList[self.wt_idx].nameList
-            activeList_L = self.UsRoster.wList[self.wt_idx].activeList
-            activeList_R = self.ThemRoster.wList[self.wt_idx].activeList
+            tempList_L = self.UsRoster.wList[self.weight].nameList
+            tempList_R = self.ThemRoster.wList[self.weight].nameList
+            activeList_L = self.UsRoster.wList[self.weight].activeList
+            activeList_R = self.ThemRoster.wList[self.weight].activeList
                            
             tempList_L = [x for x in tempList_L if x not in activeList_L]                
             tempList_R = [x for x in tempList_R if x not in activeList_R]
@@ -94,10 +97,10 @@ class ClassScoreBar(BoxLayout):
             
         else:
             
-            tempList_L = self.UsRoster.wList[self.wt_idx].nameList + self.UsRoster.wList[self.wt_idx-1].nameList
-            tempList_R = self.ThemRoster.wList[self.wt_idx].nameList + self.ThemRoster.wList[self.wt_idx-1].nameList
-            activeList_L = self.UsRoster.wList[self.wt_idx].activeList + self.UsRoster.wList[self.wt_idx-1].activeList
-            activeList_R = self.ThemRoster.wList[self.wt_idx].activeList + self.ThemRoster.wList[self.wt_idx-1].activeList
+            tempList_L = self.UsRoster.wList[self.weight].nameList + self.UsRoster.wList[self.weightDwn].nameList
+            tempList_R = self.ThemRoster.wList[self.weight].nameList + self.ThemRoster.wList[self.weightDwn].nameList
+            activeList_L = self.UsRoster.wList[self.weight].activeList + self.UsRoster.wList[self.weightDwn].activeList
+            activeList_R = self.ThemRoster.wList[self.weight].activeList + self.ThemRoster.wList[self.weightDwn].activeList
 
             tempList_L = [x for x in tempList_L if x not in activeList_L]                
             tempList_R = [x for x in tempList_R if x not in activeList_R]
@@ -111,20 +114,20 @@ class ClassScoreBar(BoxLayout):
             
             if self.weight == 106:            
                 if self.LNameText != 'default':                
-                    self.UsRoster.wList[self.wt_idx].deselectWrestler(self.LNameText)
+                    self.UsRoster.wList[self.weight].deselectWrestler(self.LNameText)
                     
-                self.UsRoster.wList[self.wt_idx].selectWrestler(txt)                    
+                self.UsRoster.wList[self.weight].selectWrestler(txt)                    
                 self.LNameText = txt
             else:           
                 if self.LNameText != 'default':                    
-                    if self.LNameText in self.UsRoster.wList[self.wt_idx].activeList:                
-                        self.UsRoster.wList[self.wt_idx].deselectWrestler(self.LNameText)                        
+                    if self.LNameText in self.UsRoster.wList[self.weight].activeList:                
+                        self.UsRoster.wList[self.weight].deselectWrestler(self.LNameText)                        
                     else:
-                        self.UsRoster.wList[self.wt_idx-1].deselectWrestler(self.LNameText)
-                if txt in self.UsRoster.wList[self.wt_idx].nameList:                    
-                    self.UsRoster.wList[self.wt_idx].selectWrestler(txt)                    
+                        self.UsRoster.wList[self.weightDwn].deselectWrestler(self.LNameText)
+                if txt in self.UsRoster.wList[self.weight].nameList:                    
+                    self.UsRoster.wList[self.weight].selectWrestler(txt)                    
                 else:                    
-                    self.UsRoster.wList[self.wt_idx-1].selectWrestler(txt)
+                    self.UsRoster.wList[self.weightDwn].selectWrestler(txt)
                     
                 self.LNameText = txt                
             
@@ -132,19 +135,19 @@ class ClassScoreBar(BoxLayout):
             
             if self.weight == 106:            
                 if self.RNameText != 'default':                
-                    self.ThemRoster.wList[self.wt_idx].deselectWrestler(self.RNameText)
+                    self.ThemRoster.wList[self.weight].deselectWrestler(self.RNameText)
                     
-                self.ThemRoster.wList[self.wt_idx].selectWrestler(txt)
+                self.ThemRoster.wList[self.weight].selectWrestler(txt)
                 self.RNameText = txt
             else:           
                 if self.RNameText != 'default':                    
-                    if self.RNameText in self.ThemRoster.wList[self.wt_idx].activeList:                
-                        self.ThemRoster.wList[self.wt_idx].deselectWrestler(self.RNameText)                        
+                    if self.RNameText in self.ThemRoster.wList[self.weight].activeList:                
+                        self.ThemRoster.wList[self.weight].deselectWrestler(self.RNameText)                        
                     else:
-                        self.ThemRoster.wList[self.wt_idx-1].deselectWrestler(self.RNameText)
-                if txt in self.ThemRoster.wList[self.wt_idx].nameList:                    
-                    self.ThemRoster.wList[self.wt_idx].selectWrestler(txt)                    
+                        self.ThemRoster.wList[self.weightDwn].deselectWrestler(self.RNameText)
+                if txt in self.ThemRoster.wList[self.weight].nameList:                    
+                    self.ThemRoster.wList[self.weight].selectWrestler(txt)                    
                 else:                    
-                    self.ThemRoster.wList[self.wt_idx-1].selectWrestler(txt)
+                    self.ThemRoster.wList[self.weight].selectWrestler(txt)
 
                 self.RNameText = txt
