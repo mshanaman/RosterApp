@@ -75,6 +75,7 @@ class ClassScoreBar(BoxLayout):
     def bind2Neighbors(self):
                
         self.LName.bind(text=self.parent.Daddy.updateWCs)
+        self.RName.bind(text=self.parent.Daddy.updateWCs)        
         self.LPred.bind(text=self.parent.totalScores)
         self.RPred.bind(text=self.parent.totalScores)
         self.LAct.bind(text=self.parent.totalScores)

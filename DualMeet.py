@@ -1,13 +1,13 @@
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.label import Label
-from kivy.properties import ListProperty, ObjectProperty, NumericProperty
+from kivy.uix.spinner import Spinner
+from kivy.properties import ListProperty, ObjectProperty, NumericProperty, DictProperty
 from collections import deque
 from ClassScoreBar import ClassScoreBar
 
 class DualMeet(BoxLayout):
     
-    ScoreBarList = ListProperty([])
-    weights = deque([106,113,120,126,132,138,145,152,160,170,182,195,220,285])
+    ScoreBarList = DictProperty({})
     UsRoster = ObjectProperty(None)
     ThemRoster = ObjectProperty(None)
     Daddy = ObjectProperty(None)
@@ -17,6 +17,7 @@ class DualMeet(BoxLayout):
         super(DualMeet,self).__init__(**kwargs)
         
         scoreSize = 0.1
+        self.weights = deque([106,113,120,126,132,138,145,152,160,170,182,195,220,285])
         
         self.orientation = 'vertical'        
         self.Title = BoxLayout()
@@ -37,15 +38,15 @@ class DualMeet(BoxLayout):
         
         scoreSize = 0.1
 
-        for i in range(14):
+        for i in self.weights:
             
-            self.ScoreBarList.append(ClassScoreBar())
+            self.ScoreBarList[i] = ClassScoreBar()
             self.add_widget(self.ScoreBarList[i])
             self.ScoreBarList[i].UsRoster = self.UsRoster
             self.ScoreBarList[i].ThemRoster = self.ThemRoster
-            self.ScoreBarList[i].setWeight(self.weights[i])
+            self.ScoreBarList[i].setWeight(i)
             
-        for j in range(14):
+        for j in self.weights:
             
             self.ScoreBarList[j].bind2Neighbors()
             
@@ -57,7 +58,9 @@ class DualMeet(BoxLayout):
         self.ActTotUs = Label(text='0', size_hint_x=scoreSize)
         self.Totals.add_widget(self.ActTotUs)
         self.Totals.add_widget(Label(size_hint_x=scoreSize))
-        self.Totals.add_widget(Label())
+        self.startVals = ['Starting at 106','Starting at 113','Starting at 120','Starting at 126','Starting at 132','Starting at 138','Starting at 145','Starting at 152','Starting at 160','Starting at 170','Starting at 182','Starting at 195','Starting at 220','Starting at 285']
+        self.StartWeight = Spinner(values=self.startVals,text_autoupdate=True)
+        self.Totals.add_widget(self.StartWeight)
         self.Totals.add_widget(Label(size_hint_x=scoreSize))
         self.PredTotThem = Label(text='0', size_hint_x=scoreSize)
         self.ActTotThem = Label(text='0', size_hint_x=scoreSize)
@@ -66,10 +69,29 @@ class DualMeet(BoxLayout):
         self.Totals.add_widget(Label())
         self.Totals.add_widget(Label(size_hint_x=scoreSize))        
         self.add_widget(self.Totals)
+        
+        self.StartWeight.bind(text=self.RotateWeights)
+
+    def RotateWeights(self,ID,value):
+        
+        idx = self.startVals.index(value)
+        self.weights.rotate(-idx)
+        
+        for w, o in self.ScoreBarList.items():
             
+            self.remove_widget(o)
+            
+        self.remove_widget(self.Totals)
+        
+        for w in self.weights:
+            
+            self.add_widget(self.ScoreBarList[w])
+        
+        self.add_widget(self.Totals)
+        
     def updateWCs(self):
 
-        for k in range(14):
+        for k in self.weights:
             
             self.ScoreBarList[k].updateNames('nothing','nothing')
 
@@ -80,7 +102,7 @@ class DualMeet(BoxLayout):
         ThemPredTot = 0
         ThemActTot = 0
         
-        for i in range(14):
+        for i in self.weights:
             
             UsAct = int(self.ScoreBarList[i].LAct.text)
             ThemAct = int(self.ScoreBarList[i].RAct.text)
